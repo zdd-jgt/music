@@ -1,0 +1,23 @@
+$d_list:320px,360px,375px,412px,414px;
+html{
+    font-size: 100px;
+}
+body{
+    font-size: 16px;
+}
+$d-size:1080px;
+@each $i in $d_list{
+    @media screen and (min-width:#{$i}){
+        html{
+            font-size: 100px * $i/$d-size;
+            
+        }
+    }
+}
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    position: relative;
+    box-sizing: border-box;
+}
