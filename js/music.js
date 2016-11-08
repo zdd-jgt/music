@@ -44,6 +44,7 @@ $(function(){
                 var s=(i==currentIndex)?"active":"";
                 $("<li class='"+s+"'><span>"+v.name+"</span><span>-"+v.author+"</span></div><div class='delete'></div><div class='shoucang'></li>").appendTo(ul);
             })
+            $(".liebiao_head b").html(musics.length);
         }
         $(".ul").on("touchend","li",function(){
             $(".ul").find("li").removeClass("active");
@@ -97,15 +98,17 @@ $(function(){
         p_i.on("touchend",false);
         progress.on("touchend",function(e){
             var offsetx=e.originalEvent.changedTouches[0].clientX;
+            //火狐
+//          var offsetx=e.originalEvent.clientX;
             audio.currentTime=offsetx / $(this).width() * audio.duration;
         })
         //进度条拖拽
         p_i.on("touchstart",function(e){    
-            var r=p_i.width()/2;
-            var offsetx=e.originalEvent.changedTouches[0].clientX;
-            var start=r-offsetx;
+//          var r=p_i.width()/2;
+//          var offsetx=e.originalEvent.changedTouches[0].clientX;
+//          var start=r-offsetx;
             $(document).on('touchmove',function(e){
-                var left=e.originalEvent.changedTouches[0].clientX - progress.position().left + start;
+                var left=e.originalEvent.changedTouches[0].clientX - progress.position().left;
                 var c=left / progress.width() * audio.duration;
                 if(c>=audio.duration||c<=0){
                     return;
@@ -186,6 +189,7 @@ $(function(){
         })
         //添加
         $('.son_tianjia').on("touchend",'div',function(){
+            console.log(1)
             var d=$(this).attr("data-v");
             musics.push(JSON.parse(d));
             render();
@@ -231,9 +235,11 @@ $(function(){
             console.log('volumechange')
         })
         $(audio).on("loadstart",function(){
-            $("#son_list1").html(musics[currentIndex].name,musics[currentIndex].author)
-            $("#son_list2").html(musics[currentIndex].name,musics[currentIndex].author);
-           $(".head_zhong").html(musics[currentIndex].name)
+//          $("#son_list1").html(musics[currentIndex].name,musics[currentIndex].author)
+            
+           $(".head_zhong h1").html(musics[currentIndex].name)
+           $(".head_zhong span").html(musics[currentIndex].author)
+           $(".liebiao_head b").html(musics.length);
             console.log('loadstart');
 //          var delete=$(".delete");
         })
