@@ -154,16 +154,19 @@ $(function(){
             v_i.css("left",volune.width() * audio.volume-v_i.width() / 2);
         });
         //拖拽
-       
+       console.log(v_i)
         v_i.on("mousedown",function(e){
             var r=v_i.width()/2;
             console.log(r)
             var offsetx=e.originalEvent.changedTouches[0].clientX;
             var start=r-e.offsetx;
+            console.log(offsetx);
+            console.log(start)
             $(document).on("mousemove",function(e){
                 var m=e.originalEvent.changedTouches[0].clientX;
                 var left=m-volune.position().left+start;
                 var c=left/volune.width();
+                console.log(m,left,c)
                 if(c>1||c<0){
                     return;
                 }
