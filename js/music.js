@@ -123,21 +123,30 @@ $(function(){
         })
         //音量
        var mute=$(".mute");
+       console.log(volune.width())
         v_i.on("touchend",false);
         volune.on("touchend",function(e){
             console.log(e)
-            var offsetx=e.originalEvent.changedTouches[0].clientX;
+            var offsetx=e.originalEvent.changedTouches[0].clientX-50;
             audio.volume=offsetx/volune.width();
             mute.removeAttr("aa");
+            
+        })
+        //静音下拉
+        $(".head_right").on("touchend",function(){
+            $(".yinliang").toggleClass("yinliang_active")
         })
         //静音
         mute.on("touchend",function(){
             if($(this).attr("aa")){
                 audio.volume=$(this).attr("aa");
                 $(this).removeAttr("aa");
+                $(this).removeClass("mute_active")
+
             }else{
                 $(this).attr("aa",audio.volume);
                 audio.volume= 0;
+                $(this).addClass("mute_active")
             }
         });
         
@@ -148,6 +157,7 @@ $(function(){
        
         v_i.on("mousedown",function(e){
             var r=v_i.width()/2;
+            console.log(r)
             var offsetx=e.originalEvent.changedTouches[0].clientX;
             var start=r-e.offsetx;
             $(document).on("mousemove",function(e){
@@ -209,6 +219,9 @@ $(function(){
                 currentIndex=musics.length-1;
             }
             audio.src=musics[currentIndex].src;
+            play.removeClass("pause");
+            play.addClass("play");
+           
             render();
         }
         function next(){
@@ -217,6 +230,8 @@ $(function(){
                 currentIndex=0;
             }
             audio.src=musics[currentIndex].src;
+            play.removeClass("pause");
+            play.addClass("play");
             render();
         }
         ///////pre_music
@@ -242,6 +257,7 @@ $(function(){
            $(".liebiao_head b").html(musics.length);
             console.log('loadstart');
 //          var delete=$(".delete");
+            
         })
         $(audio).on("progress",function(){
             console.log('lprogress')
@@ -270,6 +286,7 @@ $(function(){
             curvent.html(format(audio.currentTime));
             var width=w*audio.currentTime/audio.duration;
             p_i.css("width",width);    
+            
         })
    ///////////////////////////////////////////////////////
    $(".qita_tu5").on("touchend",function(){
