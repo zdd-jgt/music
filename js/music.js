@@ -87,7 +87,6 @@ $(function(){
         play.on("play",function(){
             $(this).removeClass("play");
             $(this).addClass("pause");
-            console.log(1)
         })
         play.on("pause",function(){
              $(this).removeClass("pause");
@@ -123,10 +122,8 @@ $(function(){
         })
         //音量
        var mute=$(".mute");
-       console.log(volune.width())
         v_i.on("touchend",false);
         volune.on("touchend",function(e){
-            console.log(e)
             var offsetx=e.originalEvent.changedTouches[0].clientX-50;
             audio.volume=offsetx/volune.width();
             mute.removeAttr("aa");
@@ -155,18 +152,14 @@ $(function(){
         });
         //拖拽
        console.log(v_i)
-        v_i.on("mousedown",function(e){
+        v_i.on("touchstart",function(e){
             var r=v_i.width()/2;
-            console.log(r)
             var offsetx=e.originalEvent.changedTouches[0].clientX;
-            var start=r-e.offsetx;
-            console.log(offsetx);
-            console.log(start)
-            $(document).on("mousemove",function(e){
+            var start=r-offsetx;
+            $(document).on("touchmove",function(e){
                 var m=e.originalEvent.changedTouches[0].clientX;
                 var left=m-volune.position().left+start;
                 var c=left/volune.width();
-                console.log(m,left,c)
                 if(c>1||c<0){
                     return;
                 }
@@ -174,7 +167,7 @@ $(function(){
             });
             return false;
         })
-        $(document).on("mouseup",function(){
+        $(document).on("touchend",function(){
             $(document).off("mousemove");
         })
         ////////////////////////
@@ -182,11 +175,9 @@ $(function(){
         //刪除
 
         ul.on("touchend",".delete",function(){
-            console.log(this)
             var li=$(this).closest("li");
             var index=li.index();
             musics.splice(index,1);
-            console.log(li)
             if(index===currentIndex){
                 if(musics[currentIndex]){
                     audio.src=musics[currentIndex].src;
@@ -202,7 +193,6 @@ $(function(){
         })
         //添加
         $('.son_tianjia').on("touchend",'div',function(){
-            console.log(1)
             var d=$(this).attr("data-v");
             musics.push(JSON.parse(d));
             render();
@@ -270,7 +260,6 @@ $(function(){
             audio.play();
             console.log('canplay')
             duration.html(format(audio.duration));
-            
         })
         $(audio).on("play",function(){
             
@@ -289,7 +278,18 @@ $(function(){
             curvent.html(format(audio.currentTime));
             var width=w*audio.currentTime/audio.duration;
             p_i.css("width",width);    
-            
+            console.log(width)
+            var mt_connei=$(".mt_context-nei");
+            console.log(audio.duration)
+            var mt_connei_H=mt_connei.height()*audio.currentTime/audio.duration;
+            mt_connei.css("top",-mt_connei_H)
+            $(".mt_context-nei p").each(function(){
+                if($(".mt_context").height()/2===$(this).position().top){
+                    $(".mt_context-nei p").removeClass("p_active")
+                    $(this).addClass("p_active");
+                }
+                
+            })
         })
    ///////////////////////////////////////////////////////
    $(".qita_tu5").on("touchend",function(){
@@ -299,4 +299,10 @@ $(function(){
        $(".liebiao").removeClass("liebiao_active");
        
    })
+   //-------------------------------------------------------------
+   var mt_context=$(".mt_context");
+   var mt_conH=mt_context.height()/2;
+   var mt_connei=$(".mt_context-nei");
+   var mt_conneiH=mt_connei.height();
+   
 });

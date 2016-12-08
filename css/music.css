@@ -118,6 +118,41 @@ body {
   overflow: hidden;
 }
 
+#box .music_text .mt_context {
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+#box .music_text .mt_context .mt_context-nei {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 100%;
+  height: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 2rem;
+  padding-bottom: .5rem;
+}
+
+#box .music_text .mt_context .mt_context-nei p {
+  text-align: center;
+  width: 100%;
+  font-size: 14px;
+  color: #FFFFFF;
+  transition: all .3s linear;
+  margin-bottom: 0.5rem;
+}
+
+#box .music_text .mt_context .mt_context-nei .p_active {
+  color: #ff0000;
+  transform: scale(1.3);
+}
+
 #box .music_text .yinliang {
   position: absolute;
   right: 0;
@@ -347,6 +382,7 @@ body {
   background: #181F29;
   transition: all 1s linear;
   transform-origin: bottom center;
+  z-index: 10000;
   overflow: hidden;
 }
 
