@@ -109,7 +109,10 @@ $(function(){
             $(document).on('touchmove',function(e){
                 var left=e.originalEvent.changedTouches[0].clientX - progress.position().left;
                 var c=left / progress.width() * audio.duration;
-                if(c>=audio.duration||c<=0){
+//              if(c>=audio.duration||c<=0){
+//                  return;
+//              }
+                if(left <= 0 || left >= progress.width()){
                     return;
                 }
                 audio.currentTime=c;
@@ -151,14 +154,13 @@ $(function(){
             v_i.css("left",volune.width() * audio.volume-v_i.width() / 2);
         });
         //拖拽
-       console.log(v_i)
         v_i.on("touchstart",function(e){
             var r=v_i.width()/2;
             var offsetx=e.originalEvent.changedTouches[0].clientX;
             var start=r-offsetx;
             $(document).on("touchmove",function(e){
                 var m=e.originalEvent.changedTouches[0].clientX;
-                var left=m-volune.position().left+start;
+                var left=m-volune.offset().left;
                 var c=left/volune.width();
                 if(c>1||c<0){
                     return;
